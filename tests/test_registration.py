@@ -1,7 +1,10 @@
+import pytest
+
 from playwright.sync_api import sync_playwright, expect
 
+@pytest.mark.regression
+@pytest.mark.registration
 def test_successfully_registration():
-
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
         context = browser.new_context()
@@ -41,7 +44,6 @@ def test_successfully_registration():
 
         list_description_text = page.get_by_test_id('courses-list-empty-view-description-text')
         expect(list_description_text).to_have_text('Results from the load test pipeline will be displayed here')
-
 
 
 
