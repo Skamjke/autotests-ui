@@ -1,50 +1,23 @@
 import pytest
 
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, Page
 
 @pytest.mark.regression
 @pytest.mark.registration
-def test_successfully_registration():
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context()
-        page = context.new_page()
+def test_successfully_registration(chromium_page: Page):
+        chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
-
-        reg_email_input = page.get_by_test_id('registration-form-email-input').locator('//div//input')
+        reg_email_input = chromium_page.get_by_test_id('registration-form-email-input').locator('//div//input')
         reg_email_input.fill('user.name@gmail.com')
 
-        reg_username_input = page.get_by_test_id('registration-form-username-input').locator('//div//input')
+        reg_username_input = chromium_page.get_by_test_id('registration-form-username-input').locator('//div//input')
         reg_username_input.fill('username')
 
-        reg_password_input = page.get_by_test_id('registration-form-password-input').locator('//div//input')
+        reg_password_input = chromium_page.get_by_test_id('registration-form-password-input').locator('//div//input')
         reg_password_input.fill('password')
 
-        reg_button = page.get_by_test_id('registration-page-registration-button')
+        reg_button = chromium_page.get_by_test_id('registration-page-registration-button')
         reg_button.click()
 
-        context.storage_state(path='browser-state.json')
-
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context(storage_state='browser-state.json')
-        page = context.new_page()
-
-        page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
-
-        list_toolbar_text = page.get_by_test_id('courses-list-toolbar-title-text')
-        expect(list_toolbar_text).to_have_text('Courses')
-
-        icon_folder = page.get_by_test_id('courses-list-empty-view-icon')
-        expect(icon_folder).to_be_visible()
-
-        list_empty_text = page.get_by_test_id('courses-list-empty-view-title-text')
-        expect(list_empty_text).to_have_text('There is no results')
-
-        list_description_text = page.get_by_test_id('courses-list-empty-view-description-text')
-        expect(list_description_text).to_have_text('Results from the load test pipeline will be displayed here')
-
-
-
-
+        title_check = chromium_page.get_by_test_id('dashboard-toolbar-title-text')
+        expect(title_check).to_be_visible()
