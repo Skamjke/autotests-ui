@@ -7,3 +7,6 @@ class BasePage():
     def visit(self, url: str):
         self.page.goto(url, wait_until="networkidle")
 
+    def page_timeout(self, ms: int):
+        self.page.wait_for_timeout(ms)
+
