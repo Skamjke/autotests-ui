@@ -1,18 +1,22 @@
+from components.navigation.navbar_component import NavbarComponent
 from pages.base_page import BasePage
 from playwright.sync_api import Page,expect
 
 class DashboardPage (BasePage):
     def __init__(self,page: Page):
         super().__init__(page)
+
+        self.navbar = NavbarComponent(page)
+
         self.dashboard_title = page.get_by_test_id('dashboard-toolbar-title-text')
-        self.dashboard_students_title = page.get_by_id('students-widget-title-text')
-        self.dashboard_students_chart = page.get_by_id('students-bar-chart')
-        self.dashboard_activities_title = page.get_by_id('activities-widget-title-text')
-        self.dashboard_activities_chart = page.get_by_id('activities-line-chart')
-        self.dashboard_courses_title = page.get_by_id('courses-widget-title-text')
-        self.dashboard_courses_chart = page.get_by_id('courses-pie-chart')
-        self.dashboard_scores_title = page.get_by_id('scores-widget-title-text')
-        self.dashboard_scores_chart = page.get_by_id('scores-scatter-chart')
+        self.dashboard_students_title = page.get_by_test_id('students-widget-title-text')
+        self.dashboard_students_chart = page.get_by_test_id('students-bar-chart')
+        self.dashboard_activities_title = page.get_by_test_id('activities-widget-title-text')
+        self.dashboard_activities_chart = page.get_by_test_id('activities-line-chart')
+        self.dashboard_courses_title = page.get_by_test_id('courses-widget-title-text')
+        self.dashboard_courses_chart = page.get_by_test_id('courses-pie-chart')
+        self.dashboard_scores_title = page.get_by_test_id('scores-widget-title-text')
+        self.dashboard_scores_chart = page.get_by_test_id('scores-scatter-chart')
 
 
     def check_title_dashboard(self):
