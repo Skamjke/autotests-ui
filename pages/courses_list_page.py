@@ -1,9 +1,15 @@
+from components.navigation.navbar_component import NavbarComponent
+from components.navigation.sidebar_component import SidebarComponent
 from pages.base_page import BasePage
 from playwright.sync_api import Page,expect
 
 class CoursesListPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
+
+        self.navbar = NavbarComponent(page)
+        self.sidebar = SidebarComponent(page)
+
         self.courses_list_tool_bar_title = page.get_by_test_id('courses-list-toolbar-title-text')
         self.create_course_button = page.get_by_test_id('courses-list-toolbar-create-course-button')
         self.courses_list_empty_icon = page.get_by_test_id('courses-list-empty-view-icon')
@@ -24,7 +30,7 @@ class CoursesListPage(BasePage):
         self.course_delete_button = page.get_by_test_id('course-view-delete-menu-item')
         self.course_delete_button_text = page.get_by_test_id('course-view-delete-menu-item-text')
         self.course_delete_button_icon = page.get_by_test_id('course-view-delete-menu-item-icon')
-    def check_courses_title(self):
+    def check_visible_courses_title(self):
         expect(self.courses_list_tool_bar_title).to_be_visible()
         expect(self.courses_list_tool_bar_title).to_have_text('Courses')
 
