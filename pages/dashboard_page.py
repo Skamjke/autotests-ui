@@ -1,3 +1,5 @@
+from components.charts.chart_view_component import ChartViewComponent
+from components.dashboard.dashboard_toolbar_view_component import DashboardToolbarViewComponent
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
 from pages.base_page import BasePage
@@ -9,38 +11,8 @@ class DashboardPage (BasePage):
 
         self.navbar = NavbarComponent(page)
         self.sidebar = SidebarComponent(page)
-
-        self.dashboard_title = page.get_by_test_id('dashboard-toolbar-title-text')
-        self.dashboard_students_title = page.get_by_test_id('students-widget-title-text')
-        self.dashboard_students_chart = page.get_by_test_id('students-bar-chart')
-        self.dashboard_activities_title = page.get_by_test_id('activities-widget-title-text')
-        self.dashboard_activities_chart = page.get_by_test_id('activities-line-chart')
-        self.dashboard_courses_title = page.get_by_test_id('courses-widget-title-text')
-        self.dashboard_courses_chart = page.get_by_test_id('courses-pie-chart')
-        self.dashboard_scores_title = page.get_by_test_id('scores-widget-title-text')
-        self.dashboard_scores_chart = page.get_by_test_id('scores-scatter-chart')
-
-
-    def check_title_dashboard(self):
-        expect(self.dashboard_title).to_be_visible()
-        expect(self.dashboard_title).to_have_text('Dashboard')
-
-    def check_visible_students_chart(self):
-        expect(self.dashboard_students_title).to_be_visible()
-        expect(self.dashboard_students_title).to_have_text('Students')
-        expect(self.dashboard_students_chart).to_be_visible()
-
-    def check_visible_activities_chart(self):
-        expect(self.dashboard_activities_title).to_be_visible()
-        expect(self.dashboard_activities_title).to_have_text('Activities')
-        expect(self.dashboard_activities_chart).to_be_visible()
-
-    def check_visible_courses_chart(self):
-        expect(self.dashboard_courses_title).to_be_visible()
-        expect(self.dashboard_courses_title).to_have_text('Courses')
-        expect(self.dashboard_courses_chart).to_be_visible()
-
-    def check_visible_scores_chart(self):
-        expect(self.dashboard_scores_title).to_be_visible()
-        expect(self.dashboard_scores_title).to_have_text('Scores')
-        expect(self.dashboard_scores_chart).to_be_visible()
+        self.dashboard_toolbar = DashboardToolbarViewComponent(page)
+        self.students_chart_view = ChartViewComponent(page, 'students','bar')
+        self.activities_chart_view = ChartViewComponent(page, 'activities','line')
+        self.courses_chart_view = ChartViewComponent(page, 'courses','pie')
+        self.scores_chart_view = ChartViewComponent(page, 'scores','scatter')
