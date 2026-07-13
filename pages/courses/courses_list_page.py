@@ -1,4 +1,5 @@
 from components.courses.course_view_component import CourseViewComponent
+from components.courses.course_view_menu_component import CourseViewMenuComponent
 from components.courses.courses_list_toolbar_view_component import ToolbarComponent
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
@@ -15,3 +16,4 @@ class CoursesListPage(BasePage):
         self.empty_view = EmptyViewComponent(page, 'courses-list')
         self.course_view = CourseViewComponent(page)
         self.toolbar_view = ToolbarComponent(page)
+        self.courses_view_menu = CourseViewMenuComponent(page)

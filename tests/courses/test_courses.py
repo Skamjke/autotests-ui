@@ -1,3 +1,5 @@
+from operator import index
+
 import pytest
 
 from pages.courses.courses_list_page import CoursesListPage
@@ -39,3 +41,22 @@ class TestCourses:
 
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible('Playwright', '2 weeks', '100', '10', 0)
+
+    def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
+        create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
+
+        create_course_page.image_upload.upload_preview_image('./testdata/files/image.png')
+        create_course_page.create_course_form.fill('Playwright', '2 weeks', 'Playwright', '100', '10')
+
+        create_course_page.create_course_toolbar.click_create_course_button()
+
+        courses_list_page.course_view.check_visible('Playwright', '2 weeks', '100', '10', 0)
+
+        courses_list_page.courses_view_menu.click_edit_button(0)
+
+        create_course_page.create_course_form.fill('Playwright_new', '4 weeks', 'Playwright_new', '200', '20')
+        create_course_page.create_course_toolbar.click_create_course_button()
+
+        courses_list_page.course_view.check_visible('Playwright_new', '4 weeks', '200', '20', 0)
+
+
