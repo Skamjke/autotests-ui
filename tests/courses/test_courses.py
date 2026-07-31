@@ -1,14 +1,25 @@
-from operator import index
-
 import pytest
-
+from allure_commons.types import Severity
+from tools.allure.tags import AllureTags
 from pages.courses.courses_list_page import CoursesListPage
 from pages.courses.create_course_page import CreateCoursePage
-
+import allure
+from tools.allure.epics import AllureEpics
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
 
 @pytest.mark.courses
 @pytest.mark.regression
+@allure.tag(AllureTags.REGRESSIONS, AllureTags.COURSES)
+@allure.epic(AllureEpics.LMS)
+@allure.feature(AllureFeature.COURSES)
+@allure.story(AllureStory.COURSES)
+@allure.parent_suite(AllureEpics.LMS)
+@allure.suite(AllureFeature.COURSES)
+@allure.sub_suite(AllureStory.COURSES)
 class TestCourses:
+    @allure.title('Check displaying of empty courses list')
+    @allure.severity(Severity.NORMAL)
     def test_empty_courses_list(self, courses_list_page: CoursesListPage):
         courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
 
@@ -19,7 +30,8 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.empty_view.check_visible('There is no results',
                                                    'Results from the load test pipeline will be displayed here')
-
+    @allure.title('Create course')
+    @allure.severity(Severity.CRITICAL)
     def test_create_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
@@ -42,6 +54,8 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible('Playwright', '2 weeks', '100', '10', 0)
 
+    @allure.title('Edit course')
+    @allure.severity(Severity.NORMAL)
     def test_edit_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):
         create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
 
