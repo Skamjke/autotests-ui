@@ -1,0 +1,9 @@
+import allure
+
+def test_feature():
+    with allure.step('Opening browser'):
+        ...
+    with allure.step('Click creating course'):
+        ...
+    with allure.step('Close browser'):
+        ...

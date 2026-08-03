@@ -28,8 +28,8 @@ class TestCourses:
         courses_list_page.sidebar.check_visible()
 
         courses_list_page.toolbar_view.check_visible()
-        courses_list_page.empty_view.check_visible('There is no results',
-                                                   'Results from the load test pipeline will be displayed here')
+        courses_list_page.check_visible_empty_view()
+
     @allure.title('Create course')
     @allure.severity(Severity.CRITICAL)
     def test_create_course(self, create_course_page: CreateCoursePage, courses_list_page: CoursesListPage):

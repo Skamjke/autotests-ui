@@ -5,7 +5,7 @@ from elements.button import Button
 from elements.text import Text
 
 from elements.input import Input
-
+import allure
 
 class CreateCourseExerciseFormComponent(BaseComponent):
     def __init__(self, page: Page):
@@ -15,6 +15,7 @@ class CreateCourseExerciseFormComponent(BaseComponent):
         self.input_description = Input(page,'create-course-exercise-form-description-{index}-input', 'Input description')
         self.delete_button_exercise = Button(page,'create-course-exercise-{index}-box-toolbar-delete-exercise-button', 'Delete exercise')
 
+    @allure.step('Check visible exercise form at index "{index}"')
     def check_visible(self, index: int, title: str, description: str):
 
         self.subtitle.check_visible()

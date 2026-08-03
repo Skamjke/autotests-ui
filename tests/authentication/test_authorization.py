@@ -30,7 +30,7 @@ class TestAuthorization:
     @allure.severity(Severity.CRITICAL)
     def test_wrong_email_or_password_authorization(self, login_page: LoginPage, email: str, password: str):
         login_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login')
-
+        
         login_page.login_form.check_visible()
         login_page.login_form.fill(email, password)
 
