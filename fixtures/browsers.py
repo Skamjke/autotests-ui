@@ -1,13 +1,16 @@
 import pytest
 from playwright.sync_api import sync_playwright, Page, Playwright
-
+from _pytest.fixtures import SubRequest
+import allure
+from allure_commons.types import AttachmentType
 from pages.authentication.registration_page import RegistrationPage
+from tools.playwright.init_pages import initialization_playwright_page
+
 
 @pytest.fixture(scope='function')
-def chromium_page(playwright: Playwright) -> Page:
-    browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
-    yield page
+def chromium_page(request: SubRequest, playwright: Playwright) -> Page:
+    yield from initialization_playwright_page(playwright, test_name=request.node.name)
+
 
 @pytest.fixture(scope='session')
 def initialize_browser_state(playwright: Playwright) -> Page:
@@ -26,9 +29,5 @@ def initialize_browser_state(playwright: Playwright) -> Page:
     browser.close()
 
 @pytest.fixture(scope='function')
-def chromium_page_with_state(initialize_browser_state, playwright: Playwright) -> Page:
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context(storage_state='browser-state.json')
-    page = context.new_page()
-    yield page
-    browser.close()
+def chromium_page_with_state(request: SubRequest, initialize_browser_state, playwright: Playwright) -> Page:
+    yield from initialization_playwright_page(playwright, test_name=request.node.name, storage_state='browser-state.json')
