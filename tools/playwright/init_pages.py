@@ -1,12 +1,11 @@
-from typing import Any, Generator
 
 from playwright.sync_api import Playwright,Page
 import allure
-
+from config import settings
 
 def initialization_playwright_page(playwright: Playwright, test_name: str, storage_state: str | None = None) -> Page:
     browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context(storage_state=storage_state, record_video_dir='./videos')
+    context = browser.new_context(base_url=settings.get_base_url(), storage_state=storage_state, record_video_dir='./videos')
     context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
 

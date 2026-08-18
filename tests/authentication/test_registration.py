@@ -8,6 +8,9 @@ from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from allure_commons.types import Severity
 
+from tools.route import AppRoute
+from config import settings
+
 
 @pytest.mark.regression
 @pytest.mark.registration
@@ -22,8 +25,7 @@ class TestRegistration:
     @allure.title('Registration with correct email, username and password')
     @allure.severity(Severity.BLOCKER)
     def test_successful_registration(self,registration_page: RegistrationPage, dashboard_page: DashboardPage):
-        registration_page.visit(
-            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
-        registration_page.reg_form_component.fill('user.name@gmail.com', 'username', 'password')
+        registration_page.visit(AppRoute.REGISTRATION)
+        registration_page.reg_form_component.fill(settings.test_user.email, settings.test_user.username, settings.test_user.password)
         registration_page.click_reg_button()
         dashboard_page.dashboard_toolbar.check_visible()
