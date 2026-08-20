@@ -6,9 +6,9 @@ from typing import Self
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Browser(str, Enum):
-    chromium = "chromium"
-    firefox = "firefox"
-    webkit = "webkit"
+    CHROMIUM = "chromium"
+    FIREFOX = "firefox"
+    WEBKIT = "webkit"
 
 class TestUser(BaseModel):
     email: EmailStr
@@ -27,7 +27,7 @@ class Settings(BaseSettings):
 
     app_url: HttpUrl
     headless: bool
-    browser: list [Browser]
+    browsers: list [Browser]
     test_user: TestUser
     test_data: TestData
     videos_dir: DirectoryPath
