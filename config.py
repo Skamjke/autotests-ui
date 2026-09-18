@@ -33,21 +33,25 @@ class Settings(BaseSettings):
     videos_dir: DirectoryPath
     tracing_dir: DirectoryPath
     browser_state_file: FilePath
+    allure_results_dir: DirectoryPath
 
     @classmethod
     def initialize(cls) -> Self:
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
+        allure_results_dir = DirectoryPath("./allure-results")
         browser_state_file = FilePath("browser_state.json")
 
         videos_dir.mkdir(exist_ok=True)
         tracing_dir.mkdir(exist_ok=True)
+        allure_results_dir.mkdir(exist_ok=True)
         browser_state_file.touch(exist_ok=True)
 
         return Settings(
             videos_dir=videos_dir,
             tracing_dir=tracing_dir,
-            browser_state_file=browser_state_file
+            browser_state_file=browser_state_file,
+            allure_results_dir=allure_results_dir
         )
     def get_base_url(self) -> str:
         return f"{self.app_url}"
