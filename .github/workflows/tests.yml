@@ -49,8 +49,8 @@ jobs:
       - name: Download Artifacts from jobs "run-tests"
         uses: actions/download-artifact@v5
         with:
-          name: allure-result
-          path: allure-result
+          name: allure-results
+          path: allure-results
 
       - name: Get Allure history
         uses: actions/checkout@v4
