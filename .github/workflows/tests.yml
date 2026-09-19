@@ -34,6 +34,24 @@ jobs:
         run: |
           pytest -m regression --alluredir=./allure-results --numprocesses=4
 
+      - name: Upload Artifacts for Deploy report to GitHub Pages
+        uses: actions/upload-artifact@v7
+        with:
+          name: allure-results
+          path: allure-results
+
+  publish-report:
+    runs-on: ubuntu-latest
+    needs: run-tests
+    if: always()
+
+    steps:
+      - name: Download Artifacts from jobs "run-tests"
+        uses: actions/download-artifact@v5
+        with:
+          name: allure-result
+          path: allure-result
+
       - name: Get Allure history
         uses: actions/checkout@v4
         if: always()
