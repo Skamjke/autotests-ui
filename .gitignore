@@ -14,6 +14,3 @@ allure-results
 *.json
 videos
 tracing
-chromium-webkit
-chromium-webkit-firefox
-webkit-firefox
