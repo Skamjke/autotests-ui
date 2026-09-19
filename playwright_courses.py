@@ -21,6 +21,7 @@ with sync_playwright() as playwright:
     reg_button = page.get_by_test_id('registration-page-registration-button')
     reg_button.click()
 
+
     context.storage_state(path='browser-state.json')
 
 with sync_playwright() as playwright:
@@ -29,6 +30,7 @@ with sync_playwright() as playwright:
     page = context.new_page()
 
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+
 
     list_toolbar_text = page.get_by_test_id('courses-list-toolbar-title-text')
     expect(list_toolbar_text).to_have_text('Courses')
