@@ -34,7 +34,37 @@ jobs:
         run: |
           pytest -m regression --alluredir=./allure-results --numprocesses=4
 
-      - name: Upload Artifacts for Deploy report to GitHub Pages
+      - name: Restore cached Coverage History
+        if: always()
+        uses: actions/cache/restore@v6
+        with:
+          path: |
+            path: coverage-gistory.json
+          key: coverage-history-${{ github.run_id }}
+          restore-keys: |
+            coverage-history-
+
+      - name: Generate Coverage report
+        run: |
+          ui-coverage-tool save-report
+
+      - name: Save cached Coverage History
+        if: always()
+        uses: actions/cache/save@v6
+        with:
+          path: |
+            coverage-history.json
+          key: coverage-history-${{ github.run_id }}
+
+      - name: Upload Coverage Results Artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-results
+          path: coverage_report.html
+
+      - name: Upload Artifacts for Deploy results to GitHub Pages
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: allure-results
