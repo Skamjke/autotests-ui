@@ -1,8 +1,11 @@
 from playwright.sync_api import Page, Locator, expect
 import allure
 from elements.ui_coverage import tracker
+
 from tools.logger import get_logger
 from ui_coverage_tool import ActionType, SelectorType
+
+
 logger = get_logger("BASE_ELEMENT")
 
 class BaseElement:
