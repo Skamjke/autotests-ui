@@ -39,7 +39,7 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: |
-            path: coverage-gistory.json
+            path: coverage-history.json
           key: coverage-history-${{ github.run_id }}
           restore-keys: |
             coverage-history-
