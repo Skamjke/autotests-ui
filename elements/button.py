@@ -1,6 +1,8 @@
 from elements.base_element import BaseElement
 from playwright.sync_api import expect
+
 import allure
+
 from ui_coverage_tool import ActionType
 
 from tools.logger import get_logger
